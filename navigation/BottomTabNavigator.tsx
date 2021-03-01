@@ -1,73 +1,120 @@
-import { Ionicons } from '@expo/vector-icons';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createStackNavigator } from '@react-navigation/stack';
+import {Ionicons, MaterialCommunityIcons} from '@expo/vector-icons';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import { BottomTabParamList, TabOneParamList, TabTwoParamList } from '../types';
+import BooksScreen from '../screens/BooksScreen';
+import SearchScreen from '../screens/SearchScreen';
+import {BooksParamList, BottomTabParamList, NotificationParamList, SearchParamList, AccountParamList} from '../types';
+import NotificationScreen from "../screens/NotificationScreen";
+import AccountScreen from "../screens/AccountScreen";
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
 export default function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
+    const colorScheme = useColorScheme();
 
-  return (
-    <BottomTab.Navigator
-      initialRouteName="TabOne"
-      tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
-      <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-        }}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
-        options={{
-          tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />,
-        }}
-      />
-    </BottomTab.Navigator>
-  );
+    return (
+        <BottomTab.Navigator
+            initialRouteName="Books"
+            tabBarOptions={{activeTintColor: Colors[colorScheme].tint, showLabel: false}}>
+            <BottomTab.Screen
+                name="Books"
+                component={BooksNavigator}
+                options={{
+                    tabBarIcon: ({color}) => <MaterialCommunityIcons name="book-open-variant" size={30} color={color}/>,
+                }}
+            />
+            <BottomTab.Screen
+                name="Search"
+                component={SearchNavigator}
+                options={{
+                    tabBarIcon: ({color}) => <MaterialCommunityIcons name="magnify" size={30} color={color}/>,
+                }}
+            />
+            <BottomTab.Screen
+                name="Notification"
+                component={NotificationNavigator}
+                options={{
+                    tabBarIcon: ({color}) => <MaterialCommunityIcons name="bell" size={30} color={color}/>,
+                }}
+            />
+            <BottomTab.Screen
+                name="Account"
+                component={AccountNavigator}
+                options={{
+                    tabBarIcon: ({color}) => <MaterialCommunityIcons name="account" size={30} color={color}/>,
+                }}
+            />
+        </BottomTab.Navigator>
+    );
 }
 
 // You can explore the built-in icon families and icons on the web at:
 // https://icons.expo.fyi/
 function TabBarIcon(props: { name: React.ComponentProps<typeof Ionicons>['name']; color: string }) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
+    return <Ionicons size={30} style={{marginBottom: -3}} {...props} />;
 }
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const BooksStack = createStackNavigator<BooksParamList>();
 
-function TabOneNavigator() {
-  return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen
-        name="TabOneScreen"
-        component={TabOneScreen}
-        options={{ headerTitle: 'Tab One Title' }}
-      />
-    </TabOneStack.Navigator>
-  );
+function BooksNavigator() {
+    return (
+        <BooksStack.Navigator
+            screenOptions={{
+                headerShown: false
+            }}
+        >
+            <BooksStack.Screen
+                name="BooksScreen"
+                component={BooksScreen}
+            />
+        </BooksStack.Navigator>
+    );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const SearchStack = createStackNavigator<SearchParamList>();
 
-function TabTwoNavigator() {
-  return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
-        options={{ headerTitle: 'Tab Two Title' }}
-      />
-    </TabTwoStack.Navigator>
-  );
+function SearchNavigator() {
+    return (
+        <SearchStack.Navigator>
+            <SearchStack.Screen
+                name="SearchScreen"
+                component={SearchScreen}
+                options={{headerTitle: 'Search Book'}}
+            />
+        </SearchStack.Navigator>
+    );
+}
+
+const NotificationStack = createStackNavigator<NotificationParamList>();
+
+function NotificationNavigator() {
+    return (
+        <NotificationStack.Navigator>
+            <NotificationStack.Screen
+                name="NotificationScreen"
+                component={NotificationScreen}
+                options={{headerTitle: 'Notifications'}}
+            />
+        </NotificationStack.Navigator>
+    );
+}
+
+const AccountStack = createStackNavigator<AccountParamList>();
+
+function AccountNavigator() {
+    return (
+        <AccountStack.Navigator>
+            <AccountStack.Screen
+                name="AccountScreen"
+                component={AccountScreen}
+                options={{headerTitle: 'User Account'}}
+            />
+        </AccountStack.Navigator>
+    );
 }
