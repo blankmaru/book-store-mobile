@@ -25,3 +25,10 @@ export type NotificationParamList = {
 export type AccountParamList = {
   AccountScreen: undefined;
 };
+
+export interface Book {
+  id: string,
+  image: string,
+  timeReading: string,
+  prcRead: string
+}

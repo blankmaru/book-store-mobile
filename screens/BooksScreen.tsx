@@ -4,6 +4,8 @@ import { StyleSheet } from 'react-native';
 import { Text, View } from '../components/Themed';
 import BooksHeader from "../components/Books/BooksHeader";
 import ButtonGroup from "../components/Books/ButtonGroup";
+import MyBookList from "../components/Books/MyBookList";
+import CategoriesSection from "../components/Books/CategoriesSection";
 
 export default function BooksScreen() {
   return (
@@ -11,6 +13,8 @@ export default function BooksScreen() {
       <BooksHeader />
       <View style={{padding: 20}}>
           <ButtonGroup />
+          <MyBookList />
+          <CategoriesSection />
       </View>
     </View>
   );
