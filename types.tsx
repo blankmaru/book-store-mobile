@@ -28,7 +28,11 @@ export type AccountParamList = {
 
 export interface Book {
   id: string,
+  name?: string,
+  author?: string,
   image: string,
-  timeReading: string,
-  prcRead: string
+  timeReading?: string,
+  prcRead?: string,
+  pages?: number,
+  category?: Array<string>
 }
